@@ -23,7 +23,7 @@ async def help_cmd(client, message):
             break
     else:
         module = None
-        text = 'Select the module you want help with'
+        text = 'Select the module you want help with👀'
         buttons = []
         to_append = []
         for internal_name in help_dict:
