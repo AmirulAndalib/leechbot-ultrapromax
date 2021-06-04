@@ -57,7 +57,7 @@ async def torrent_cmd(client, message):
 
 async def initiate_torrent(client, message, link, send_as_zip):
     user_id = message.from_user.id
-    reply = await message.reply_text('Adding torrent...')
+    reply = await message.reply_text('Adding torrent..😬')
     try:
         gid = await aria2_add_torrent(session, user_id, link, LEECH_TIMEOUT)
     except Aria2Error as ex:
@@ -146,7 +146,7 @@ async def initiate_directdl(client, message, link, filename, send_as_zip):
     except Aria2Error as ex:
         await asyncio.gather(message.reply_text(f'Aria2 Error Occured!\n{ex.error_code}: {html.escape(ex.error_message)}'), reply.delete())
     except asyncio.TimeoutError:
-        await asyncio.gather(message.reply_text('Connection timed out'), reply.delete())
+        await asyncio.gather(message.reply_text('Connection timed out☹️'), reply.delete())
     else:
         await handle_leech(client, message, gid, reply, user_id, send_as_zip)
 
@@ -281,7 +281,7 @@ async def cancel_leech(client, message):
                 await message.reply_text('You did not start this leech.')
             else:
                 stop_uploads.add(reply_identifier)
-                await message.reply_text('Cancelled!')
+                await message.reply_text('Leech Cancelled!🤧')
             return
         starter_id = upload_waits.get(reply_identifier)
         if starter_id:
@@ -289,7 +289,7 @@ async def cancel_leech(client, message):
                 await message.reply_text('You did not start this leech.')
             else:
                 stop_uploads.add(reply_identifier)
-                await message.reply_text('Cancelled!')
+                await message.reply_text('Cancelled!🤧')
             return
         gid = leech_statuses.get(reply_identifier)
     if not gid:
