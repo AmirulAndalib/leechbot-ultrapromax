@@ -1,23 +1,3 @@
-
-# Copyright (C) 2020-2021 DragSama. All rights reserved. Source code available under the AGPL.
-#
-# This file is part of AniFluidBot.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-# Uses Time Formatter from Uniborg: https://github.com/SpEcHiDe/UniBorg/blob/master/uniborg/utils.py
-
 from telegram.ext.dispatcher import run_async
 from telegram.ext import CommandHandler, CallbackContext
 from telegram import Update, Bot
@@ -383,5 +363,3 @@ dispatcher.add_handler(AIRING_HANDLER)
 dispatcher.add_handler(ANIME_HANDLER)
 dispatcher.add_handler(MANGA_HANDLER)
 dispatcher.add_handler(CHARACTER_HANDLER)
-
-#all credits goes to anifluid bot/team
