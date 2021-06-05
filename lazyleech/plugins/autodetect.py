@@ -42,7 +42,7 @@ async def autodetect(client, message):
             if splitted.scheme == 'magnet' and splitted.query:
                 link = text
     if link:
-        reply = await message.reply_text(f'{"Torrent" if is_torrent else "Magnet"} detected. Select upload method', reply_markup=InlineKeyboardMarkup([
+        reply = await message.reply_text(f'{"Torrent" if is_torrent else "Magnet"} detected🌝. Select upload method 😋', reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton('Individual Files', 'autodetect_individual'), InlineKeyboardButton('Zip', 'autodetect_zip')],
             [InlineKeyboardButton('Delete', 'autodetect_delete')]
         ]))
