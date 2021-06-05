@@ -21,7 +21,7 @@ async def upload_worker():
         try:
             message_identifier = (reply.chat.id, reply.message_id)
             if not send_as_zip:
-                asyncio.create_task(reply.edit_text('Download successful, uploading files...'))
+                asyncio.create_task(reply.edit_text('Download successful🌝, uploading files...🌚'))
             task = asyncio.create_task(_upload_worker(client, message, reply, torrent_info, user_id, send_as_zip))
             upload_statuses[message_identifier] = task, user_id
             await task
