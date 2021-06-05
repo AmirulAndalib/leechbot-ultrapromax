@@ -90,7 +90,7 @@ async def magnet_cmd(client, message):
 
 async def initiate_magnet(client, message, link, send_as_zip):
     user_id = message.from_user.id
-    reply = await message.reply_text('Adding magnet...')
+    reply = await message.reply_text('Adding magnet...🧲')
     try:
         gid = await asyncio.wait_for(aria2_add_magnet(session, user_id, link, LEECH_TIMEOUT), MAGNET_TIMEOUT)
     except Aria2Error as ex:
