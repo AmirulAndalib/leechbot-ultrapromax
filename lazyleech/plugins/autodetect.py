@@ -1,3 +1,19 @@
+# lazyleech - Telegram bot primarily to leech from torrents and upload to Telegram
+# Copyright (c) 2021 lazyleech developers <theblankx protonmail com, meliodas_bot protonmail com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 import os
 import re
 import time
@@ -42,7 +58,7 @@ async def autodetect(client, message):
                 link = text
     if link:
         reply = await message.reply_text(f'{"Torrent" if is_torrent else "Magnet"} detected. Select upload method', reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton('Individual Files', 'autodetect_individual'), InlineKeyboardButton('Zip', 'autodetect_zip'), InlineKeyboardButton('Force Document', 'autodetect_file')],
+            [InlineKeyboardButton('Individual Files', 'autodetect_individual'), InlineKeyboardButton('Zip File', 'autodetect_zip'), InlineKeyboardButton('Force Document', 'autodetect_file')],
             [InlineKeyboardButton('Delete', 'autodetect_delete')]
         ]))
         auto_detects[(reply.chat.id, reply.message_id)] = link, message.from_user.id, (initiate_torrent if is_torrent else initiate_magnet)
