@@ -43,7 +43,7 @@ async def autodetect(client, message):
                 link = text
     if link:
         reply = await message.reply_text(f'{"Torrent" if is_torrent else "Magnet"} detected. Select upload method', reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton('Individual Files 🎞', 'autodetect_individual'), InlineKeyboardButton('Force Document 💾', 'autodetect_Force')],
+            [InlineKeyboardButton('Individual Files 🎞', 'autodetect_individual'), InlineKeyboardButton('Force Document 💾', 'autodetect_File')],
             [InlineKeyboardButton('Delete 🗑', 'autodetect_delete'), InlineKeyboardButton('Zip 🤐', 'autodetect_zip')]
         ]))
         auto_detects[(reply.chat.id, reply.message_id)] = link, message.from_user.id, (initiate_torrent if is_torrent else initiate_magnet)
