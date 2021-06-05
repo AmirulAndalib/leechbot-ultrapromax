@@ -6,7 +6,7 @@ import tempfile
 from urllib.parse import urlsplit
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from .. import ALL_CHATS
+from .. import ALL_CHATS, SendAsZipFlag, ForceDocumentFlag
 from ..utils.misc import get_file_mimetype
 from ..utils import custom_filters
 from .leech import initiate_torrent, initiate_magnet
