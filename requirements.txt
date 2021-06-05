@@ -3,3 +3,9 @@ pyrogram
 tgcrypto
 natsort
 aiohttp
+datetime
+html
+textwrap
+bs4
+jikanpy
+requests
