@@ -13,7 +13,7 @@ from .. import PROGRESS_UPDATE_DELAY, ADMIN_CHATS, preserved_logs, TESTMODE
 from .misc import split_files, get_file_mimetype, format_bytes, get_video_info, generate_thumbnail, return_progress_string, calculate_eta, watermark_photo
 
 upload_queue = asyncio.Queue()
-upload_statuses = dict()
+upload_statuses = {}
 upload_tamper_lock = asyncio.Lock()
 async def upload_worker():
     while True:
@@ -53,7 +53,7 @@ async def upload_worker():
         if task:
             await task
 
-upload_waits = dict()
+upload_waits = {}
 async def _upload_worker(client, message, reply, torrent_info, user_id, send_as_zip):
     files = dict()
     sent_files = []
@@ -212,7 +212,7 @@ async def _upload_file(client, message, reply, filename, filepath):
         async with upload_tamper_lock:
             upload_waits.pop(upload_identifier)
 
-progress_callback_data = dict()
+progress_callback_data = {}
 stop_uploads = set()
 async def progress_callback(current, total, client, reply, filename, user_id):
     message_identifier = (reply.chat.id, reply.message_id)

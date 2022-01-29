@@ -13,28 +13,34 @@ from .leech import initiate_torrent, initiate_magnet
 
 NYAA_REGEX = re.compile(r'^(?:https?://)?(?:(www\.|sukebei\.)?nyaa\.si|nyaa.squid.workers.dev)/(?:view|download)/(\d+)(?:[\./]torrent)?$')
 NYAA_REGEX = re.compile(r'^(?:https?://)?(?P<base>(?:www\.|sukebei\.)?nyaa\.si|nyaa.squid.workers.dev)/(?:view|download)/(?P<sauce>\d+)(?:[\./]torrent)?$')
-auto_detects = dict()
+auto_detects = {}
 @Client.on_message(filters.chat(ALL_CHATS), group=1)
 async def autodetect(client, message):
     text = message.text
     document = message.document
     link = None
     is_torrent = False
-    if document:
-        if document.file_size < 1048576 and document.file_name.endswith('.torrent') and (not document.mime_type or document.mime_type == 'application/x-bittorrent'):
-            os.makedirs(str(message.from_user.id), exist_ok=True)
-            fd, link = tempfile.mkstemp(dir=str(message.from_user.id), suffix='.torrent')
-            os.fdopen(fd).close()
-            await message.download(link)
-            mimetype = await get_file_mimetype(link)
-            is_torrent = True
-            if mimetype != 'application/x-bittorrent':
-                os.remove(link)
-                link = None
-                is_torrent = False
+    if (
+        document
+        and document.file_size < 1048576
+        and document.file_name.endswith('.torrent')
+        and (
+            not document.mime_type
+            or document.mime_type == 'application/x-bittorrent'
+        )
+    ):
+        os.makedirs(str(message.from_user.id), exist_ok=True)
+        fd, link = tempfile.mkstemp(dir=str(message.from_user.id), suffix='.torrent')
+        os.fdopen(fd).close()
+        await message.download(link)
+        mimetype = await get_file_mimetype(link)
+        is_torrent = True
+        if mimetype != 'application/x-bittorrent':
+            os.remove(link)
+            link = None
+            is_torrent = False
     if not link and text:
-        match = NYAA_REGEX.match(text)
-        if match:
+        if match := NYAA_REGEX.match(text):
             link = f'https://{match.group("base")}/download/{match.group("sauce")}.torrent'
             is_torrent = True
         else:
@@ -69,10 +75,9 @@ async def autodetect_callback(client, callback_query):
         answered.add(identifier)
     asyncio.create_task(message.delete())
     data = callback_query.data
-    start_leech = data in ('autodetect_individual', 'autodetect_zip')
-    send_as_zip = data == 'autodetect_zip'
-    if start_leech:
+    if start_leech := data in ('autodetect_individual', 'autodetect_zip'):
         if getattr(message.reply_to_message, 'empty', True):
             await callback_query.answer('Don\'t delete your message!', show_alert=True)
             return
+        send_as_zip = data == 'autodetect_zip'
         await asyncio.gather(callback_query.answer(), init_func(client, message.reply_to_message, link, send_as_zip))
